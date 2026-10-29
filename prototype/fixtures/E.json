@@ -1,0 +1,63 @@
+{
+  "proposal": "E",
+  "source": "fixture (hand-extracted; evidence quotes omitted because the brief text must not be committed)",
+  "fields": {
+    "licence_held_by_bidder": {
+      "value": true,
+      "evidence": null
+    },
+    "licence_number": {
+      "value": "(stated in proposal)",
+      "evidence": null
+    },
+    "wsib_clearance": {
+      "value": true,
+      "evidence": null
+    },
+    "liability_insurance_cad_millions": {
+      "value": 5,
+      "evidence": null
+    },
+    "qualifying_installs": {
+      "value": 8,
+      "evidence": null
+    },
+    "installs_period_start_year": {
+      "value": 2021,
+      "evidence": null
+    },
+    "total_price_cad": {
+      "value": 242500,
+      "evidence": null
+    },
+    "completion_weeks": {
+      "value": 13,
+      "evidence": null
+    },
+    "panel_warranty_years": {
+      "value": 25,
+      "evidence": null
+    },
+    "workmanship_warranty_years": {
+      "value": 12,
+      "evidence": null
+    },
+    "named_project_lead": {
+      "value": true,
+      "evidence": null
+    },
+    "crew_described": {
+      "value": true,
+      "evidence": null
+    },
+    "safety_plan": {
+      "value": true,
+      "evidence": null
+    },
+    "monitoring_plan": {
+      "value": true,
+      "evidence": null
+    }
+  },
+  "embedded_instructions": []
+}

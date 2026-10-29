@@ -1,0 +1,185 @@
+{
+  "category_id": "commercial-solar-installation",
+  "category_name": "Commercial Solar Installation",
+  "criteria_version": 1,
+  "project_constraints": {
+    "budget_ceiling_cad": 260000,
+    "max_completion_weeks": 16,
+    "experience_window_years": 5,
+    "evaluation_year": 2026
+  },
+  "extraction_fields": [
+    {
+      "key": "licence_held_by_bidder",
+      "type": "boolean",
+      "question": "Does the bidder itself (not a subcontractor) hold an Ontario electrical contractor licence that is stated in the proposal? false if the work is subcontracted or the licence is 'to be confirmed'."
+    },
+    {
+      "key": "licence_number",
+      "type": "string",
+      "question": "The licence number exactly as written, if any."
+    },
+    {
+      "key": "wsib_clearance",
+      "type": "boolean",
+      "question": "Does the proposal confirm current WSIB clearance?"
+    },
+    {
+      "key": "liability_insurance_cad_millions",
+      "type": "number",
+      "question": "Amount of liability insurance stated, in millions of CAD."
+    },
+    {
+      "key": "qualifying_installs",
+      "type": "integer",
+      "question": "Number of completed commercial solar installs of 100 kW or more that the bidder states."
+    },
+    {
+      "key": "installs_period_start_year",
+      "type": "integer",
+      "question": "The earliest year of the period those installs cover (e.g. 'since 2021' -> 2021; 'past four years' -> evaluation_year - 4)."
+    },
+    {
+      "key": "total_price_cad",
+      "type": "number",
+      "question": "Total proposed price in CAD."
+    },
+    {
+      "key": "completion_weeks",
+      "type": "number",
+      "question": "Committed completion time in weeks from award. null if not committed (e.g. 'to be determined')."
+    },
+    {
+      "key": "panel_warranty_years",
+      "type": "number",
+      "question": "Panel (manufacturer) warranty length in years."
+    },
+    {
+      "key": "workmanship_warranty_years",
+      "type": "number",
+      "question": "Workmanship warranty length in years."
+    },
+    {
+      "key": "named_project_lead",
+      "type": "boolean",
+      "question": "Is a specific project lead or manager named or committed now (not 'assigned at kickoff')?"
+    },
+    {
+      "key": "crew_described",
+      "type": "boolean",
+      "question": "Is the delivery crew described (size and/or certification)?"
+    },
+    {
+      "key": "safety_plan",
+      "type": "boolean",
+      "question": "Does the proposal include a site safety plan?"
+    },
+    {
+      "key": "monitoring_plan",
+      "type": "boolean",
+      "question": "Does the proposal include a performance monitoring plan for the system after install?"
+    }
+  ],
+  "criteria": [
+    {
+      "id": "licence",
+      "name": "Ontario electrical contractor licence",
+      "type": "mandatory",
+      "rule": {
+        "all_true": [
+          "licence_held_by_bidder"
+        ]
+      }
+    },
+    {
+      "id": "wsib_insurance",
+      "name": "WSIB clearance and $5M liability insurance",
+      "type": "mandatory",
+      "rule": {
+        "all_true": [
+          "wsib_clearance"
+        ],
+        "min": {
+          "liability_insurance_cad_millions": 5
+        }
+      }
+    },
+    {
+      "id": "experience",
+      "name": "Relevant experience",
+      "type": "weighted",
+      "weight": 30,
+      "rule": {
+        "method": "fixed_scale",
+        "field": "qualifying_installs",
+        "full_marks_at": 15
+      }
+    },
+    {
+      "id": "price",
+      "name": "Price",
+      "type": "weighted",
+      "weight": 25,
+      "rule": {
+        "method": "lower_is_better",
+        "field": "total_price_cad"
+      }
+    },
+    {
+      "id": "timeline",
+      "name": "Timeline",
+      "type": "weighted",
+      "weight": 15,
+      "rule": {
+        "method": "lower_is_better",
+        "field": "completion_weeks"
+      }
+    },
+    {
+      "id": "warranty",
+      "name": "Warranty",
+      "type": "weighted",
+      "weight": 15,
+      "rule": {
+        "method": "average_of",
+        "parts": [
+          {
+            "method": "higher_is_better",
+            "field": "panel_warranty_years"
+          },
+          {
+            "method": "higher_is_better",
+            "field": "workmanship_warranty_years"
+          }
+        ]
+      }
+    },
+    {
+      "id": "team",
+      "name": "Team and approach",
+      "type": "weighted",
+      "weight": 15,
+      "rule": {
+        "method": "checklist",
+        "fields": [
+          "named_project_lead",
+          "crew_described",
+          "safety_plan",
+          "monitoring_plan"
+        ]
+      }
+    }
+  ],
+  "hard_limits": [
+    {
+      "field": "total_price_cad",
+      "max_from": "budget_ceiling_cad",
+      "if_missing": "flag"
+    },
+    {
+      "field": "completion_weeks",
+      "max_from": "max_completion_weeks",
+      "if_missing": "flag"
+    }
+  ]
+}

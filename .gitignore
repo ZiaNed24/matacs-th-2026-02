@@ -1,0 +1,5 @@
+.env
+prototype/.env
+prototype/samples/
+prototype/out/
+__pycache__/
